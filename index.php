@@ -1,9 +1,10 @@
 <?php 
     require_once $_SERVER['DOCUMENT_ROOT'].'/includes/tables.php';
 
+    $userIP = $_SERVER['REMOTE_ADDR'];
     $keyAPI = '5c38541aa3437c11073df2b6c03fa79e';
     // Initialize CURL
-    $ch = curl_init('http://api.ipstack.com/check?access_key='.$keyAPI.'');
+    $ch = curl_init('http://api.ipstack.com/'.$userIP.'?access_key='.$keyAPI.'');
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     // Store the data:
     $json = curl_exec($ch);
