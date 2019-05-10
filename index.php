@@ -8,7 +8,6 @@
     } else {
         $ip = $_SERVER['REMOTE_ADDR'];
     }
-    echo $ip;
 
     $keyAPI = '5c38541aa3437c11073df2b6c03fa79e';
     // Initialize CURL
