@@ -1,6 +1,7 @@
 <?php 
     require_once $_SERVER['DOCUMENT_ROOT'].'/includes/tables.php';
 
+    // Determine the users real public IP
     if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
         $ip = $_SERVER['HTTP_CLIENT_IP'];
     } else if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
@@ -9,23 +10,25 @@
         $ip = $_SERVER['REMOTE_ADDR'];
     }
 
-    $keyAPI = '5c38541aa3437c11073df2b6c03fa79e';
+    //$keyAPI = '5c38541aa3437c11073df2b6c03fa79e';
+    $keyAPI = '';
+    
     // Initialize CURL
     $ch = curl_init('http://api.ipstack.com/'.$ip.'?access_key='.$keyAPI.'');
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
     // Store the data:
     $json = curl_exec($ch);
     curl_close($ch);
   
     // Decode JSON response:
     $resultJSON = json_decode($json, true);
+
     // Define some dynamic API data variables to better determine location
     $country_code = $resultJSON['country_code'];
     $country_name = $resultJSON['country_name'];
     $country_flag = $resultJSON['location']['country_flag'];
     $publicIP = $resultJSON['ip'];
-    //$country_lang = $resultJSON['location']['languages'][0]['name'];
-    //$continent_name = $resultJSON['continent_name'];
   
     // ============================>> DEBUGGER ****
     // echo ('<pre>');
