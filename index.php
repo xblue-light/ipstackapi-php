@@ -4,9 +4,14 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/IPStack/initialize.php');
 use IPStack\PHP\IpstackAPIClient;
 
 // Load .env into current file
-$dotenv = Dotenv\Dotenv::create(__DIR__);
-$dotenv->load();
-$api_key = getenv('API_KEY');
+if (file_exists(__DIR__ . '/.env')) {
+    $dotenv = Dotenv\Dotenv::create(__DIR__);
+    $dotenv->load();
+    $api_key = getenv('API_KEY');
+}
+else {
+    $api_key = getenv('API_KEY');
+}
 
 try {
     $ipstackAPIClient = new IpstackAPIClient(

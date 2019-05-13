@@ -5,9 +5,14 @@ use GuzzleHttp\Client;
 $client = new Client();
 
 // Load .env into current file
-$dotenv = Dotenv\Dotenv::create(__DIR__);
-$dotenv->load();
-$api_key = getenv('API_KEY');
+if (file_exists(__DIR__ . '/.env')) {
+    $dotenv = Dotenv\Dotenv::create(__DIR__);
+    $dotenv->load();
+    $api_key = getenv('API_KEY');
+}
+else {
+    $api_key = getenv('API_KEY');
+}
 
 // Determine the users real public IP
 if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
