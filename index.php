@@ -23,7 +23,7 @@ try {
 
     $location = $ipstackAPIClient->getClientLocation();
     
-    if ($location === null || !$location['country_name'] === null) {
+    if ($location === null || $location['country_name'] === null) {
         // If the location wasnt found run a default template
         echo 'Failed to find location. Load some defaults here, clearly something went wrong!'.PHP_EOL;
     } else {
