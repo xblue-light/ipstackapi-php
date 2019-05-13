@@ -6,8 +6,7 @@ ob_start();
     <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Public page</title>
-        <!-- Compiled and minified CSS -->
+        <title>Geolocation API</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
@@ -18,7 +17,15 @@ ob_start();
     <h1>GEO Location API</h1>
     <ul>
         <li>Public IP: <?php echo '<b>'. $public_ip . '</b>'; ?></li>
-        <li>Location: <?php echo $is_country_name . ', ' .$is_country_code; ?> </li>
+        <li>
+        <?php 
+            if(isset($is_country_code) && $is_country_name !== ""){
+                echo 'Location: '. $is_country_name . ', ' .$is_country_code; 
+            } else {
+                echo '<p>Location: Default table header - API call possibly didnt go through.</p>';
+            } 
+        ?> 
+        </li>
     </ul>
     <div class="divider"></div>
     </div>
@@ -161,7 +168,7 @@ ob_start();
             </thead>
             <tbody>
                 <tr>
-                    <td><img src="<?php echo $country_flag_url; ?>" alt="INT Flag" width="75" height="45"/></td>
+                    <td><img src="/#!" alt="Default Flag" width="75" height="45"/></td>
                     <td>Dolores est temporibus omnis sint laborum sint. Vero facere blanditiis rem aspernatur aut harum. Minus ut dolor ducimus non consectetur corrupti nihil quibusdam.</td>
                     <td>$555</td>
                     <td><?php echo $is_country_name; ?></td>
