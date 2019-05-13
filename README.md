@@ -1,4 +1,4 @@
-### This is a ipstack.com PHP class for getting the users geolocation 
+### This is a ipstack.com PHP class for getting a users geolocation and public IP.
 
 #### Install dependencies:
 
