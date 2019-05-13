@@ -14,6 +14,7 @@ else {
 }
 
 try {
+
     $ipstackAPIClient = new IpstackAPIClient(
         $api_key, // API Key
         false, // Use HTTPS (IPStack Basic plan and up only, defaults to false)
@@ -22,19 +23,29 @@ try {
 
     $location = $ipstackAPIClient->getClientLocation();
     
-    if ($location == NULL) {
-        echo 'Failed to find location.'.PHP_EOL;
+    if ($location === null || !$location['country_name'] === null) {
+        // If the location wasnt found run a default template
+        echo 'Failed to find location. Load some defaults here, clearly something went wrong!'.PHP_EOL;
     } else {
-        // Convert the location to a standard PHP array.
-        //echo $location['longitude'] . PHP_EOL;
+        
+        // DEBUGGER ============>>>>>>>>>>>>>>>>
+        echo '<pre>';
         var_dump($location);
+        echo '</pre>';
+        return
+        // ============>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+        // Define some dynamic API data variables to better determine location
+        $country_code = $location['country_code'];
+        $country_name = $location['country_name'];
+        $country_flag = $location['location']['country_flag'];
+        $public_ip    = $location['ip'];
+
     }
 }
 catch (\Exception $e) {
-    // echo $e->getMessage();
-    // echo PHP_EOL;
-    echo 'Default behaviour should be happening here, load some default tables etc.';
+    echo $e->getMessage();
+    //echo 'Default behaviour should be happening here, load some default tables etc. Error '. $e;
 }
-
 
 ?>

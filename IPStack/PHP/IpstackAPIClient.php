@@ -31,8 +31,8 @@ Class IpstackAPIClient
     private $use_https;
 
     /**
-     * Construct the FreeGeoIp object with server information.
-     * Defaults to freegeoip.net.
+     * Construct the ipstack.com object with server information.
+     * Defaults to ipstack.com.
      *
      * @param string      $api_key
      * @param bool        $use_https
@@ -52,10 +52,10 @@ Class IpstackAPIClient
      */
     public function getClientLocation()
     {
-        $results = NULL;
+        $results = null;
 
         try {
-
+            
             // Get real visitor IP behind CloudFlare network
             if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
                 $_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
@@ -77,8 +77,8 @@ Class IpstackAPIClient
                 $ip = $remote;
             }
 
-            //$ip = 'check';
-
+            // $ip = 'check';
+            
             $response = (new Client([
                 'base_uri' => (
                     ($this->use_https)
@@ -93,8 +93,7 @@ Class IpstackAPIClient
                 $compiled = json_decode($response->getBody()->getContents(), true);
 
                 if (array_key_exists('error', $compiled)) {
-                    //throw new \Exception('Error: '.$compiled['error']['info']);
-                    throw new \Exception('Throwing new fvck! =>'.$compiled['error']['info']);
+                    throw new \Exception('Error: '.$compiled['error']['info']);
                 }
 
                 $results = $compiled;
