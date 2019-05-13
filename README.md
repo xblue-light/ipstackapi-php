@@ -1,4 +1,4 @@
-### This is a ipstack.com PHP class for getting a users geolocation and public IP.
+### This is a ipstack PHP/Guzzle API class for retrieving a users geolocation and public IP.
 
 #### Install dependencies:
 
