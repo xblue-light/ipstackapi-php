@@ -1,7 +1,11 @@
 <?php
 
     require_once $_SERVER['DOCUMENT_ROOT'].'/includes/tables.php';    
-    $api_key = '5c38541aa3437c11073df2b6c03fa79e';
+
+    // Load .env into current file
+    $dotenv = Dotenv\Dotenv::create(__DIR__);
+    $dotenv->load();
+    $api_key = getenv('API_KEY');
 
     // Determine the users real public IP
     if (!empty($_SERVER['HTTP_CLIENT_IP'])) {

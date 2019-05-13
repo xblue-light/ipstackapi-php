@@ -3,10 +3,14 @@
 require_once($_SERVER['DOCUMENT_ROOT'].'/IPStack/initialize.php');
 use IPStack\PHP\IpstackAPIClient;
 
+// Load .env into current file
+$dotenv = Dotenv\Dotenv::create(__DIR__);
+$dotenv->load();
+$api_key = getenv('API_KEY');
+
 try {
-    //$access_key = "5c38541aa3437c11073df2b6c03fa79e";
     $ipstackAPIClient = new IpstackAPIClient(
-        '', // API Key
+        $api_key, // API Key
         false, // Use HTTPS (IPStack Basic plan and up only, defaults to false)
         10 // Timeout in seconds (defaults to 10 seconds)
     );
