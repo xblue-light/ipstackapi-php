@@ -1,14 +1,13 @@
 ### This is a ipstack.com PHP class for getting the users geolocation 
 
-** Install dependencies: **
+#### Install dependencies:
 
-`
-$ composer install
-`
+`$ composer install`
 
-** Basic usage: **
 
-`
+#### Basic usage:
+
+```php
 $ipstackAPIClient = new IpstackAPIClient(
     'API_KEY_GOES_HERE', // API Key
     false, // Use HTTPS (IPStack Basic plan and up only, defaults to false)
@@ -18,11 +17,12 @@ $ipstackAPIClient = new IpstackAPIClient(
 $response = $ipstackAPIClient->getClientLocation();
 // Dump the response into an array
 var_dump($response);
-`
+```
 
-** Instantiate new location: **
 
-`
+#### Instantiate new location:
+
+```php
 $api_key = "API_KEY_GOES_HERE";
 
 try {
@@ -44,4 +44,4 @@ try {
 catch (\Exception $e) {
     echo $e->getMessage();
 }
-`
+```
