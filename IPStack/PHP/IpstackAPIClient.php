@@ -83,7 +83,7 @@ Class IpstackAPIClient
                 $ip = $remote;
             }
 
-            $ip = 'check';
+            //$ip = 'check';
             
             $response = (new Client([
                 'base_uri' => (
