@@ -55,9 +55,7 @@ Class IpstackAPIClient
      */
     public function getClientLocation()
     {
-        // Create and register rate limiter middleware 
-        $stack = HandlerStack::create();
-        $stack->push(RateLimiterMiddleware::perMinute(3));
+
         $results = NULL;
 
         try {
@@ -89,7 +87,10 @@ Class IpstackAPIClient
             }
 
             //$ip = 'check';
-            
+            // Create and register rate limiter middleware 
+            $stack = HandlerStack::create();
+            $stack->push(RateLimiterMiddleware::perMinute(3));
+
             $response = (new Client([
                 'base_uri' => (
                     ($this->use_https)
