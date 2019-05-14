@@ -47,7 +47,7 @@
 
 $server = $_SERVER;
 foreach ($server as $key => $value) {
-    echo "{$key} => {$value} <br/>";
+    //echo "{$key} => {$value} <br/>";
 }
 
 ?>
