@@ -29,7 +29,7 @@ try {
 
     if ($response === NULL || $response['country_name'] === NULL || $response['country_code'] === NULL) {
         // If the location wasnt found run a default template
-        echo 'Failed to find location. Probably requester using a proxy!'.PHP_EOL;
+        die("Failed to find exact location. The requester is probably using a proxy!");
     } 
     else {
         var_dump($response);
@@ -37,7 +37,6 @@ try {
         // $country_code = $response['country_code'];
         // $country_name = $response['country_name'];
         // $country_flag = $response['location']['country_flag'];
-        // $public_ip    = $response['ip'];
     }
 }
 catch (\Exception $e) {

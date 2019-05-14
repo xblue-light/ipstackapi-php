@@ -29,7 +29,7 @@ $response = $client->request(
     'http://api.ipstack.com/check?access_key='.$api_key.'',
 );
 
-var_dump($response);
+var_dump($response->getBody());
 //echo $response->getBody();
 
 
