@@ -3,10 +3,9 @@
 namespace IPStack\PHP;
 require 'vendor/autoload.php';
 use GuzzleHttp\Client;
+use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\HandlerStack;
-use Spatie\GuzzleRateLimiterMiddleware\RateLimiterMiddleware;
 
 Class IpstackAPIClient
 {
@@ -55,7 +54,6 @@ Class IpstackAPIClient
      */
     public function getClientLocation()
     {
-
         $results = NULL;
 
         try {
@@ -86,10 +84,7 @@ Class IpstackAPIClient
                 $ip = $remote;
             }
 
-            //$ip = 'check';
-            // Create and register rate limiter middleware 
-            $stack = HandlerStack::create();
-            $stack->push(RateLimiterMiddleware::perMinute(3));
+            $ip = 'check';
 
             $response = (new Client([
                 'base_uri' => (
@@ -97,13 +92,11 @@ Class IpstackAPIClient
                         ? 'https'
                         : 'http'
                 ).'://api.ipstack.com/',
-                //'delay'   => 10000,
-                'handler' => $stack, // Register the rate limiter to client
                 'timeout' => $this->timeout, // Response timeout
-                'connect_timeout' => 5, // Connection timeout
                 'headers' => [ 
                     'Content-Type' => 'application/json' 
                 ],
+                
             ]))->get($ip.'?access_key='.$this->api_key);
             
             // If the response from our API has status === 200 then proceed.

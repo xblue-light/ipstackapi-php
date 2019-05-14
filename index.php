@@ -3,6 +3,7 @@
 require_once($_SERVER['DOCUMENT_ROOT'].'/IPStack/initialize.php');
 use IPStack\PHP\IpstackAPIClient;
 
+
 // Load .env into current file
 if (file_exists(__DIR__ . '/.env')) {
     $dotenv = Dotenv\Dotenv::create(__DIR__);
@@ -24,8 +25,8 @@ try {
     $response = $ipstackAPIClient->getClientLocation();
     
     // DEBUGGER ============>>>>>>>>>>>>>>>>
-    // var_dump($response);
-    // return;
+    var_dump($response);
+    return;
 
     if ($response === NULL || $response['country_name'] === NULL || $response['country_code'] === NULL) {
         // If the location wasnt found run a default template
