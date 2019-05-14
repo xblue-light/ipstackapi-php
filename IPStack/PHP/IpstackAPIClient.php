@@ -83,7 +83,7 @@ Class IpstackAPIClient
                 $ip = $remote;
             }
 
-            //$ip = 'check';
+            $ip = 'check';
             
             $response = (new Client([
                 'base_uri' => (
@@ -91,7 +91,9 @@ Class IpstackAPIClient
                         ? 'https'
                         : 'http'
                 ).'://api.ipstack.com/',
-                'timeout' => $this->timeout,
+                //'delay'   => 10000,
+                'timeout' => $this->timeout, // Response timeout
+                'connect_timeout' => 5, // Connection timeout
                 'headers' => [ 
                     'Content-Type' => 'application/json' 
                 ],
@@ -104,7 +106,7 @@ Class IpstackAPIClient
                 $compiled = json_decode($response->getBody()->getContents(), true);
 
                 // Request headers
-                //$compiled = $response->getHeaders();
+                // $compiled = $response->getHeaders();
 
                 // If an array key error exists within the $compiled array then there must be an error throw exception.
                 if (array_key_exists('error', $compiled)) {
