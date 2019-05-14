@@ -33,7 +33,6 @@ try {
         var_dump($location);
         echo '</pre>';
         return
-        // ============>>>>>>>>>>>>>>>>>>>>>>>>>>
 
         // Define some dynamic API data variables to better determine location
         $country_code = $location['country_code'];

@@ -77,7 +77,7 @@ Class IpstackAPIClient
                 $ip = $remote;
             }
 
-            // $ip = 'check';
+            $ip = 'check';
             
             $response = (new Client([
                 'base_uri' => (
@@ -86,12 +86,18 @@ Class IpstackAPIClient
                         : 'http'
                 ).'://api.ipstack.com/',
                 'timeout' => $this->timeout,
-            ]))->get($ip.'?access_key='.$this->api_key.'&output=json');
-
-            if ($response->getStatusCode() == 200) {
+                'headers' => [ 
+                    'Content-type' => 'application/json' 
+                ],
+            ]))->get($ip.'?access_key='.$this->api_key.'&security=1');
+            
+            // If the response from our API has status === 200 then proceed.
+            if ($response->getStatusCode() === 200) {
                 
+                // Decode the response data array and store into $compiled
                 $compiled = json_decode($response->getBody()->getContents(), true);
 
+                // If an array key error exists within the $compiled array then there must be an error throw exception.
                 if (array_key_exists('error', $compiled)) {
                     throw new \Exception('Error: '.$compiled['error']['info']);
                 }
