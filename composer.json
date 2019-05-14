@@ -9,6 +9,7 @@
     ],
     "require": {
         "guzzlehttp/guzzle": "^6.3",
-        "vlucas/phpdotenv": "^3.3"
+        "vlucas/phpdotenv": "^3.3",
+        "spatie/guzzle-rate-limiter-middleware": "^1.0"
     }
 }

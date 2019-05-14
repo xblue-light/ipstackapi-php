@@ -5,6 +5,8 @@ require 'vendor/autoload.php';
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\HandlerStack;
+use Spatie\GuzzleRateLimiterMiddleware\RateLimiterMiddleware;
 
 Class IpstackAPIClient
 {
@@ -53,7 +55,10 @@ Class IpstackAPIClient
      */
     public function getClientLocation()
     {
-        $results = null;
+        // Create and register rate limiter middleware 
+        $stack = HandlerStack::create();
+        $stack->push(RateLimiterMiddleware::perMinute(3));
+        $results = NULL;
 
         try {
             
@@ -83,7 +88,7 @@ Class IpstackAPIClient
                 $ip = $remote;
             }
 
-            $ip = 'check';
+            //$ip = 'check';
             
             $response = (new Client([
                 'base_uri' => (
@@ -92,6 +97,7 @@ Class IpstackAPIClient
                         : 'http'
                 ).'://api.ipstack.com/',
                 //'delay'   => 10000,
+                'handler' => $stack, // Register the rate limiter to client
                 'timeout' => $this->timeout, // Response timeout
                 'connect_timeout' => 5, // Connection timeout
                 'headers' => [ 
