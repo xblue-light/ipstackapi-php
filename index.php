@@ -14,7 +14,7 @@ else {
 }
 
 try {
-
+    
     $ipstackAPIClient = new IpstackAPIClient(
         $api_key, // API Key
         false, // Use HTTPS (IPStack Basic plan and up only, defaults to false)
@@ -27,6 +27,7 @@ try {
     // echo '<pre>';
     // var_dump($response);
     // echo '</pre>';
+
     foreach($response as $name => $value) {
         $value = implode(', ', $value);
         echo "{$name}: {$value}\r\n";
@@ -50,7 +51,6 @@ try {
 }
 catch (\Exception $e) {
     echo $e->getMessage();
-    //echo 'Default behaviour should be happening here, load some default tables etc. Error '. $e;
 }
 
 ?>
