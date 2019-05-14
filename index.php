@@ -24,10 +24,8 @@ try {
     $response = $ipstackAPIClient->getClientLocation();
     
     // DEBUGGER ============>>>>>>>>>>>>>>>>
-    // echo '<pre>';
-    // var_dump($response);
-    // echo '</pre>';
-    // return;
+    var_dump($response);
+    return;
 
     // foreach($response as $name => $value) {
     //     $value = implode(', ', $value);
