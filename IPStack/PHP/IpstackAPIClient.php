@@ -61,6 +61,11 @@ Class IpstackAPIClient
                 $_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
                 $_SERVER['HTTP_CLIENT_IP'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
             }
+            // Determine visit IP checking the 'HTTP_X_FORWARDED_FOR
+            if (isset($_SERVER["HTTP_X_FORWARDED_FOR"])) {
+                $_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_X_FORWARDED_FOR"];
+                $_SERVER['HTTP_CLIENT_IP'] = $_SERVER["HTTP_X_FORWARDED_FOR"];
+            }
             $client  = $_SERVER['HTTP_CLIENT_IP'];
             $forward = $_SERVER['HTTP_X_FORWARDED_FOR'];
             $remote  = $_SERVER['REMOTE_ADDR'];
