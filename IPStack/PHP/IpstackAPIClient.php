@@ -95,10 +95,10 @@ Class IpstackAPIClient
             if ($response->getStatusCode() === 200) {
                 
                 // Request response data array and decode
-                //$compiled = json_decode($response->getBody()->getContents(), true);
+                $compiled = json_decode($response->getBody()->getContents(), true);
 
                 // Request headers
-                $compiled = $response->getHeaders();
+                //$compiled = $response->getHeaders();
 
                 // If an array key error exists within the $compiled array then there must be an error throw exception.
                 if (array_key_exists('error', $compiled)) {
