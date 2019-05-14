@@ -49,6 +49,7 @@ Class IpstackAPIClient
      * Retrieve a location for a specific IP address.
      *
      * @throws \Exception
+     * 
      */
     public function getClientLocation()
     {
@@ -62,7 +63,7 @@ Class IpstackAPIClient
                 $_SERVER['HTTP_CLIENT_IP'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
             }
             // Determine visit IP checking the 'HTTP_X_FORWARDED_FOR
-            if (isset($_SERVER["HTTP_X_FORWARDED_FOR"])) {
+            else if (isset($_SERVER["HTTP_X_FORWARDED_FOR"])) {
                 $_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_X_FORWARDED_FOR"];
                 $_SERVER['HTTP_CLIENT_IP'] = $_SERVER["HTTP_X_FORWARDED_FOR"];
             }
@@ -73,7 +74,7 @@ Class IpstackAPIClient
             {
                 $ip = $client;
             }
-            elseif(filter_var($forward, FILTER_VALIDATE_IP))
+            else if(filter_var($forward, FILTER_VALIDATE_IP))
             {
                 $ip = $forward;
             }
@@ -82,7 +83,7 @@ Class IpstackAPIClient
                 $ip = $remote;
             }
 
-            //$ip = 'check';
+            $ip = 'check';
             
             $response = (new Client([
                 'base_uri' => (

@@ -24,19 +24,14 @@ try {
     $response = $ipstackAPIClient->getClientLocation();
     
     // DEBUGGER ============>>>>>>>>>>>>>>>>
-    var_dump($response);
-    return;
+    // var_dump($response);
+    // return;
 
-    // foreach($response as $name => $value) {
-    //     $value = implode(', ', $value);
-    //     echo "{$name}: {$value}\r\n";
-    //     echo '<br/>';
-    // }
-
-    if ($response === NULL || $response['country_name'] === NULL) {
+    if ($response === NULL || $response['country_name'] === NULL || $response['country_code'] === NULL) {
         // If the location wasnt found run a default template
-        echo 'Failed to find location. Load some defaults here, clearly something went wrong!'.PHP_EOL;
-    } else {
+        echo 'Failed to find location. Probably requester using a proxy!'.PHP_EOL;
+    } 
+    else {
         var_dump($response);
         // Define some dynamic API data variables to better determine location
         // $country_code = $response['country_code'];
