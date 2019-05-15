@@ -55,12 +55,10 @@ Class IpstackAPIClient
 
         try {
             
-            // Get real visitor IP behind CloudFlare network
             if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
                 $_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
                 $_SERVER['HTTP_CLIENT_IP'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
             }
-            // Determine visit IP checking the 'HTTP_X_FORWARDED_FOR
             else if (isset($_SERVER["HTTP_X_FORWARDED_FOR"])) {
                 $_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_X_FORWARDED_FOR"];
                 $_SERVER['HTTP_CLIENT_IP'] = $_SERVER["HTTP_X_FORWARDED_FOR"];
@@ -81,7 +79,7 @@ Class IpstackAPIClient
                 $ip = $remote;
             }
 
-            $ip = 'check';
+            //$ip = 'check';
 
             $response = (new Client([
                 'base_uri' => (
@@ -98,10 +96,8 @@ Class IpstackAPIClient
             
             // If the response from our API has status === 200 then proceed.
             if ($response->getStatusCode() === 200) {
-                
                 // Request response data array and decode
                 $compiled = json_decode($response->getBody()->getContents(), true);
-
                 // If an array key error exists within the $compiled array then there must be an error throw exception.
                 if (array_key_exists('error', $compiled)) {
                     throw new \Exception('Error: '.$compiled['error']['info']);
