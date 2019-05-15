@@ -1,11 +1,8 @@
 <?php
 
-namespace IPStack\PHP;
-require 'vendor/autoload.php';
+namespace foobarwhatever\dingdong;
+
 use GuzzleHttp\Client;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7\Request;
 
 Class IpstackAPIClient
 {
@@ -54,7 +51,7 @@ Class IpstackAPIClient
      */
     public function getClientLocation()
     {
-        $results = NULL;
+        $results = null;
 
         try {
             
@@ -68,14 +65,14 @@ Class IpstackAPIClient
                 $_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_X_FORWARDED_FOR"];
                 $_SERVER['HTTP_CLIENT_IP'] = $_SERVER["HTTP_X_FORWARDED_FOR"];
             }
-            $client  = $_SERVER['HTTP_CLIENT_IP'];
-            $forward = $_SERVER['HTTP_X_FORWARDED_FOR'];
-            $remote  = $_SERVER['REMOTE_ADDR'];
-            if(filter_var($client, FILTER_VALIDATE_IP))
+            $client  = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : null;
+            $forward = isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : null;
+            $remote  = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null;
+            if (filter_var($client, FILTER_VALIDATE_IP))
             {
                 $ip = $client;
             }
-            else if(filter_var($forward, FILTER_VALIDATE_IP))
+            else if (filter_var($forward, FILTER_VALIDATE_IP))
             {
                 $ip = $forward;
             }
@@ -104,9 +101,6 @@ Class IpstackAPIClient
                 
                 // Request response data array and decode
                 $compiled = json_decode($response->getBody()->getContents(), true);
-
-                // Request headers
-                // $compiled = $response->getHeaders();
 
                 // If an array key error exists within the $compiled array then there must be an error throw exception.
                 if (array_key_exists('error', $compiled)) {

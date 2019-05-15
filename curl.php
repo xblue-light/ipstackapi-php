@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'].'/includes/tables.php';    
+include $_SERVER['DOCUMENT_ROOT'].'/includes/tables.php';    
 
 // Load .env into current file
 if (file_exists(__DIR__ . '/.env')) {

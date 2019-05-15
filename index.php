@@ -1,8 +1,8 @@
 <?php
-
-require_once($_SERVER['DOCUMENT_ROOT'].'/IPStack/initialize.php');
-use IPStack\PHP\IpstackAPIClient;
-
+define('APP_ROOT', $_SERVER['DOCUMENT_ROOT']);
+require APP_ROOT.'/vendor/autoload.php';
+require APP_ROOT.'/ipstack/api/src/IpstackAPIClient.php';
+use foobarwhatever\dingdong\IpstackAPIClient;
 
 // Load .env into current file
 if (file_exists(__DIR__ . '/.env')) {
@@ -15,7 +15,7 @@ else {
 }
 
 try {
-
+    // Instantiate new object
     $ipstackAPIClient = new IpstackAPIClient(
         $api_key, // API Key
         false, // Use HTTPS (IPStack Basic plan and up only, defaults to false)
@@ -25,10 +25,10 @@ try {
     $response = $ipstackAPIClient->getClientLocation();
     
     // DEBUGGER ============>>>>>>>>>>>>>>>>
-    var_dump($response);
-    return;
+    // var_dump($response);
+    // return;
 
-    if ($response === NULL || $response['country_name'] === NULL || $response['country_code'] === NULL) {
+    if ($response === null || $response['country_name'] === null || $response['country_code'] === null) {
         // If the location wasnt found run a default template
         die("Failed to find exact location. The requester is probably using a proxy!");
     } 
