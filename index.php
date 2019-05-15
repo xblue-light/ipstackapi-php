@@ -26,7 +26,7 @@ $bucket->bootstrap(0);
 if (!$bucket->consume(1, $seconds)) {
     http_response_code(429);
     header(sprintf("Retry-After: %d", floor($seconds)));
-    exit("Limit reached! Retry-After".floor($seconds));
+    exit("Limit reached! Retry-After ".floor($seconds));
 }
 
 try {
