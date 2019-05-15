@@ -1,5 +1,5 @@
 <?php
-
+die("You cant access this page!");
 include $_SERVER['DOCUMENT_ROOT'].'/includes/tables.php';    
 
 // Load .env into current file
