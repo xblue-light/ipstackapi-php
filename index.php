@@ -1,15 +1,13 @@
 <?php
 
-define('APP_ROOT', $_SERVER['DOCUMENT_ROOT']);
-require APP_ROOT.'/vendor/autoload.php';
-require APP_ROOT.'/ipstack/api/src/IpstackAPIClient.php';
+require_once('vendor/autoload.php');
+include_once('ipstack/api/src/IpstackAPIClient.php');
 
 use bandwidthThrottle\tokenBucket\Rate;
 use bandwidthThrottle\tokenBucket\TokenBucket;
 use bandwidthThrottle\tokenBucket\storage\FileStorage;
 use foobarwhatever\dingdong\IpstackAPIClient;
 
-// Load .env into current file
 if (file_exists(__DIR__ . '/.env')) {
     $dotenv = Dotenv\Dotenv::create(__DIR__);
     $dotenv->load();
@@ -31,12 +29,8 @@ if (!$bucket->consume(1, $seconds)) {
 }
 
 try {
-    $ipstackAPIClient = new IpstackAPIClient(
-        $api_key, // API Key
-        false, // Use HTTPS (IPStack Basic plan and up only, defaults to false)
-        10 // Timeout in seconds (defaults to 10 seconds)
-    );
 
+    $ipstackAPIClient = new IpstackAPIClient($api_key, false, 10);
     $response = $ipstackAPIClient->getClientLocation();
 
     if ($response === null || $response['country_name'] === null || $response['country_code'] === null) {
