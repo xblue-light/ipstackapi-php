@@ -6,10 +6,10 @@ use GuzzleHttp\Client;
 
 /**
  * Location/IP shared class leveraging Guzzle for ipstack.com API.
- * This class can be modified to work with different API services other than ipstack.com read below for more info in comments.
+ * This class can be modified to work with different API services other than ipstack.com.
  *
  * @author Paul Bowyer <xorange@protonmail.com>
- * @link mintalicious.info
+ * @link xblue.nl
  * @license MIT
  */
 
@@ -96,7 +96,7 @@ Class IpstackAPIClient
             //$ip = 'check';
 
             // If you wish to configure this response to request data from another API provider.
-            // You have the freedom to customize the request below and pass in the desired parameters required from the API service.
+            // You have the freedom to customize the request below and pass in the desired params required from your API service.
             // For further examples and documentation refer to the Guzzle docs => http://docs.guzzlephp.org/en/stable/
             $response = (new Client([
                 'base_uri' => (
@@ -126,7 +126,7 @@ Class IpstackAPIClient
         catch (\Exception $e) {
             throw $e;
         }
-        // This is the response that we return when the object gets instantiated.
+        
         return $results;
     }
 
