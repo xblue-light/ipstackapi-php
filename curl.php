@@ -1,4 +1,5 @@
 <?php
+// This is the cURL implementation for ipstack.com API does the exact same thing performs GET request to API and response is data array.
 die("You cant access this page!");
 include $_SERVER['DOCUMENT_ROOT'].'/includes/tables.php';    
 
