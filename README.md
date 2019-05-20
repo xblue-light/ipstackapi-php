@@ -14,6 +14,7 @@ $ipstackAPIClient = new IpstackAPIClient(
     10 // Timeout in seconds (defaults to 10 seconds)
 );
 
+// Call the getClientLocation() method which returns an array with location/ip
 $response = $ipstackAPIClient->getClientLocation();
 // Dump the response into an array
 var_dump($response);
@@ -33,7 +34,7 @@ try {
     );
 
     $location = $ipstackAPIClient->getClientLocation();
-    
+    // Error handling ideal for outputting default template/page if location array was equal to null.
     if ($location == NULL) {
         echo 'Failed to find location.'.PHP_EOL;
     } else {

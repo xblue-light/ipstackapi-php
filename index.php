@@ -6,8 +6,8 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/ipstack/api/src/IpstackAPIClient.php');
 use bandwidthThrottle\tokenBucket\Rate;
 use bandwidthThrottle\tokenBucket\TokenBucket;
 use bandwidthThrottle\tokenBucket\storage\FileStorage;
-use foobarwhatever\dingdong\IpstackAPIClient;
 use bandwidthThrottle\tokenBucket\storage\StorageException;
+use ipstack\api\src\IpstackAPIClient;
 
 // Does the .env file exist within in our root directory?
 // If true call static method Dotev::create() and a new variable $api_key then store the value taken from .env file

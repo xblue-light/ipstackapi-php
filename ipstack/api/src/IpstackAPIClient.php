@@ -1,8 +1,16 @@
 <?php
 
-namespace foobarwhatever\dingdong;
+namespace ipstack\api\src;
 
 use GuzzleHttp\Client;
+
+/**
+ * Location/IP class leveraging Guzzle for ipstack.com API which can be publically shared.
+ *
+ * @author Paul Bowyer <xorange@protonmail.com>
+ * @link mintalicious.info
+ * @license MIT
+ */
 
 Class IpstackAPIClient
 {
@@ -54,23 +62,28 @@ Class IpstackAPIClient
         $results = null;
 
         try {
-            
-            if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
+
+            // Attempt to determine a visitors public IP address.
+            if(isset($_SERVER["HTTP_CF_CONNECTING_IP"])) 
+            {
                 $_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
                 $_SERVER['HTTP_CLIENT_IP'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
             }
-            else if (isset($_SERVER["HTTP_X_FORWARDED_FOR"])) {
+            elseif(isset($_SERVER["HTTP_X_FORWARDED_FOR"])) 
+            {
                 $_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_X_FORWARDED_FOR"];
                 $_SERVER['HTTP_CLIENT_IP'] = $_SERVER["HTTP_X_FORWARDED_FOR"];
             }
+            
             $client  = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : null;
             $forward = isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : null;
             $remote  = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null;
-            if (filter_var($client, FILTER_VALIDATE_IP))
+
+            if(filter_var($client, FILTER_VALIDATE_IP))
             {
                 $ip = $client;
             }
-            else if (filter_var($forward, FILTER_VALIDATE_IP))
+            elseif(filter_var($forward, FILTER_VALIDATE_IP))
             {
                 $ip = $forward;
             }
@@ -95,7 +108,7 @@ Class IpstackAPIClient
             ]))->get($ip.'?access_key='.$this->api_key);
             
             // If the response from our API has status === 200 then proceed.
-            if ($response->getStatusCode() === 200) {
+            if($response->getStatusCode() === 200) {
                 // Request response data array and decode
                 $compiled = json_decode($response->getBody()->getContents(), true);
                 // If an array key error exists within the $compiled array then there must be an error throw exception.
