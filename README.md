@@ -1,9 +1,12 @@
-### This is a ipstack PHP/Guzzle API class for retrieving a users geolocation and public IP.
+### A simple PHP wrapper leveraging [Guzzle](http://docs.guzzlephp.org/en/stable/) to send a synchronous request using the IPStack Geo API.
 
 #### Install dependencies:
 
 `$ composer install`
 
+#### Example preview [demo](https://fathomless-beach-32451.herokuapp.com/)
+
+#### Learn more about IPStack here: [ipstack.com](https://ipstack.com/)
 
 #### Basic usage:
 
@@ -14,9 +17,10 @@ $ipstackAPIClient = new IpstackAPIClient(
     10 // Timeout in seconds (defaults to 10 seconds)
 );
 
-// Call the getClientLocation() method which returns an array with the visitors location/ip details
+// Call the getClientLocation() method which returns an array with the visitor location/ip details.
 $response = $ipstackAPIClient->getClientLocation();
-// Dump the response into an array
+
+// Dump the response variable
 var_dump($response);
 ```
 
@@ -27,18 +31,16 @@ var_dump($response);
 $api_key = "API_KEY_GOES_HERE";
 
 try {
-    $ipstackAPIClient = new IpstackAPIClient(
-        $api_key, // API Key
-        false, // Use HTTPS (IPStack Basic plan and up only, defaults to false)
-        10 // Timeout in seconds (defaults to 10 seconds)
-    );
-
+    
+    $ipstackAPIClient = new IpstackAPIClient($api_key, false, 10);
     $location = $ipstackAPIClient->getClientLocation();
-    // Error handling ideal for outputting default template/page.
-    if ($location == NULL) {
-        echo 'Failed to find location.'.PHP_EOL;
+    
+    // Error checking to determine if the response array has certain key values set.
+    // I noticed if a visitor is using a proxy of some sort these key values can be often unset/null.
+    if ($response === null || $response['country_name'] === null || $response['country_code'] === null) {
+        echo "Failed to find a location";
     } else {
-        // Ouputs location array recieved from sucessful response
+        // Dump location variable
         var_dump($location);
     }
 }
@@ -47,7 +49,7 @@ catch (\Exception $e) {
 }
 ```
 
-### Usage with limit rate 
+### Usage with limit rate :
 ```php
 try {
 
@@ -61,21 +63,12 @@ try {
     if (!$bucket->consume(1, $seconds)) {
         http_response_code(429);
         header(sprintf("Retry-After: %d", floor($seconds)));
-        exit("Limit reached! Retry-After ".floor($seconds));
+        exit("Limit reached! Retry after: " . floor($seconds));
     }
 
-    // Instantiate a new object and set some default parameters.
-        $ipstackAPIClient = new IpstackAPIClient(
-        $api_key, // API Key
-        false, // Use HTTPS (IPStack Basic plan and up only, defaults to false)
-        10 // Timeout in seconds (defaults to 10 seconds)
-    );
-    
-    // Call the getClientLocation() method which returns an array with the visitors location/ip details
+    $ipstackAPIClient = new IpstackAPIClient($api_key, false, 10);
     $response = $ipstackAPIClient->getClientLocation();
 
-    // Error checking to determine if our response array has certain key values set.
-    // Often I noticed if a visitor is using a proxy these key values can be unset/null.
     if ($response === null || $response['country_name'] === null || $response['country_code'] === null) {
         exit("Failed to find exact location.");
     } 
