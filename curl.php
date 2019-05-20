@@ -1,5 +1,5 @@
 <?php
-// This is the cURL implementation for ipstack.com API does the exact same thing performs GET request to API and response is data array.
+
 die("You cant access this page!");
 include $_SERVER['DOCUMENT_ROOT'].'/includes/tables.php';    
 
@@ -13,7 +13,6 @@ else {
     $api_key = getenv('API_KEY');
 }
 
-// Determine the users real public IP
 if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
     $ip = $_SERVER['HTTP_CLIENT_IP'];
 } else if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
@@ -47,10 +46,10 @@ $public_ip    = $responseArray['ip'];
 
 // Build our shortcode array which we can then pass down to our template
 $atts = array (
-'country_name' => $country_name,
-'country_code' => $country_code,
-'country_flag' => $country_flag,
-'public_ip'    => $public_ip,
+    'country_name' => $country_name,
+    'country_code' => $country_code,
+    'country_flag' => $country_flag,
+    'public_ip'    => $public_ip,
 );
 
 // Pass these data variables from API down to our get_geolocation_tables() function
@@ -59,6 +58,11 @@ $is_country_code  = $atts['country_code'];
 $country_flag_url = $atts['country_flag'];
 $public_ip        = $atts['public_ip'];
 
-get_geolocation_tables($is_country_name, $is_country_code, $country_flag_url, $public_ip);
+get_geolocation_tables(
+    $is_country_name, 
+    $is_country_code, 
+    $country_flag_url, 
+    $public_ip
+);
   
 ?>
