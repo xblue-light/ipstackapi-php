@@ -1,10 +1,12 @@
 ### A simple PHP wrapper leveraging [Guzzle](http://docs.guzzlephp.org/en/stable/) to send a synchronous request using the IPStack Geo API.
 
-#### Install dependencies:
+#### Install project dependencies:
 
 `$ composer install`
 
-#### Example preview [demo](https://fathomless-beach-32451.herokuapp.com/)
+#### Dont have Composer installed? Learn how to install it here: [getcomposer.org](https://getcomposer.org/download/)
+
+#### Preview [demo](https://fathomless-beach-32451.herokuapp.com/)
 
 #### Learn more about IPStack here: [ipstack.com](https://ipstack.com/)
 
@@ -25,7 +27,7 @@ var_dump($response);
 ```
 
 
-#### Alternative example:
+#### Alternative usage:
 
 ```php
 $api_key = "API_KEY_GOES_HERE";
@@ -49,7 +51,7 @@ catch (\Exception $e) {
 }
 ```
 
-### Usage with limit rate :
+#### Limit rate usage:
 ```php
 try {
 
