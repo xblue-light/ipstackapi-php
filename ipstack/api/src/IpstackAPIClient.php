@@ -5,7 +5,7 @@ namespace ipstack\api\src;
 use GuzzleHttp\Client;
 
 /**
- * Location/IP shared class leveraging Guzzle to send a synchronous request using the IPStack Geo API.
+ * A simple PHP wrapper leveraging Guzzle to send a synchronous request using the IPStack Geo API.
  * This class can be modified to work with different API services other than ipstack.com.
  *
  * @author Paul Bowyer <xorange@protonmail.com>
