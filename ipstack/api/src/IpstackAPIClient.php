@@ -5,12 +5,11 @@ namespace ipstack\api\src;
 use GuzzleHttp\Client;
 
 /**
- * Location/IP shared class leveraging Guzzle for ipstack.com API.
+ * Location/IP shared class leveraging Guzzle to send a synchronous request using the IPStack Geo API.
  * This class can be modified to work with different API services other than ipstack.com.
  *
  * @author Paul Bowyer <xorange@protonmail.com>
  * @link xblue.nl
- * @license MIT
  */
 
 Class IpstackAPIClient
@@ -93,33 +92,28 @@ Class IpstackAPIClient
                 $ip = $remote;
             }
 
-            //$ip = 'check';
-
-            // If you wish to configure this response to request data from another API provider.
-            // You have the freedom to customize the request below and pass in the desired params required from your API service.
-            // For further examples and documentation refer to the Guzzle docs => http://docs.guzzlephp.org/en/stable/
-            $response = (new Client([
+            $request_query = (new Client([
                 'base_uri' => (
                     ($this->use_https)
                         ? 'https'
                         : 'http'
-                ).'://api.ipstack.com/',
+                ).'://api.ipstack.com/', // Base URI
                 'timeout'  => $this->timeout, // Response timeout
-                'headers'  => [ 
+                'headers'  => [ // Define headers
                     'Content-Type' => 'application/json' 
                 ],
                 
             ]))->get($ip.'?access_key='.$this->api_key);
             
-            // If the response from our API has status === 200 then proceed.
-            if($response->getStatusCode() === 200) {
+            // If the response status code from our request is 200 then proceed
+            if($request_query->getStatusCode() === 200) {
                 // Request response data array and decode
-                $compiled = json_decode($response->getBody()->getContents(), true);
+                $compiled = json_decode($request_query->getBody()->getContents(), true);
                 // If an array key error exists within the $compiled array then there must be an error throw exception.
-                if (array_key_exists('error', $compiled)) {
+                if(array_key_exists('error', $compiled)) {
                     throw new \Exception('Error: '.$compiled['error']['info']);
                 }
-
+                // Finally store our response into $results
                 $results = $compiled;
             }
         } 
