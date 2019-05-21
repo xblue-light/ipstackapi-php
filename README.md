@@ -85,3 +85,5 @@ catch (\Exception $e) {
     echo $e->getMessage();
 }
 ```
+
+Inspired by and credits also go to: [ipstackgeo-php](https://github.com/nathan-fiscaletti/ipstackgeo-php), [bandwith-throttle](https://github.com/bandwidth-throttle/bandwidth-throttle), [ipstack.com](https://ipstack.com/), [phpdotenv](https://github.com/vlucas/phpdotenv)
