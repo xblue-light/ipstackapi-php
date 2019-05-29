@@ -1,4 +1,6 @@
-### A simple PHP wrapper leveraging [Guzzle](http://docs.guzzlephp.org/en/stable/) to build synchronous requests using the IPStack Geo API.
+### IPStack Geo API - PHP
+
+#### A simple PHP wrapper leveraging [Guzzle](http://docs.guzzlephp.org/en/stable/) which attempts to determine a visitors geographical location. 
 
 #### Install project dependencies:
 
